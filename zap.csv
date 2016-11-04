@@ -1,0 +1,2 @@
+//span[contains(@class,'price')]/ancestor::a/@href;//span[contains(text(),'Valor do m')]/parent;//li[contains(text(),'quarto')];//li[contains(text(),'vaga')];//strong['Ano de Construção:']/parent;;//li[contains(text(),'m')];;//span[contains(text(),'R$')];//span[contains(text(),'Condomínio')]/parent;;//(span[@class='loc2'])[2];//span[@class='bairro'];//div[@id='descricaoOferta']/p;//h3[text()='Características'];//div[@id='caracteristicaOferta'];proximaPagina
+url;$/m2;quartos;vagas;ano;andares;m2util;m2total;valor;condominio;id;rua;bairro;descr;carcIM;caracCond;
