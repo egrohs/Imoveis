@@ -3,12 +3,12 @@ package modelo;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -18,10 +18,11 @@ public abstract class Site {
 	// private Document doc;
 	protected String siteURL;
 	protected List<Imovel> imoveis = new ArrayList<Imovel>();
+	protected Document doc;
 
 	public abstract String getUrl();
 
-	public abstract List<Imovel> getData(Document doc, List<Imovel> imoveis) throws IOException;
+	public abstract List<Imovel> getData(List<Imovel> imoveis) throws IOException;
 
 	public Site(boolean needDriver) throws Exception {
 		if (needDriver) {
@@ -33,7 +34,8 @@ public abstract class Site {
 			driver = new ChromeDriver();
 		}
 		// List<Politico> politicos = JavaBeanToCsv.read();// le existentes
-		imoveis = getData(navega(getUrl()), imoveis);
+		navega(getUrl());
+		imoveis = getData(imoveis);
 		// JavaBeanToCsv.toCSV(politicos);// salva novos
 		if (driver != null) {
 			driver.close();
@@ -43,6 +45,7 @@ public abstract class Site {
 	protected Document navega(String url) {
 		if (driver != null) {
 			driver.get(url);
+			driver.get(url);
 		}
 		espera();
 		return lePagina();
@@ -50,13 +53,15 @@ public abstract class Site {
 
 	protected Document lePagina() {
 		if (driver != null) {
-			return Jsoup.parse(driver.getPageSource());
+			doc = Jsoup.parse(driver.getPageSource());
+			return doc;
 		}
 		try {
-			return Jsoup.connect(getUrl())
+			doc = Jsoup.connect(getUrl())
 					.userAgent(
 							"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.152 Safari/537.36")
 					.get();
+			return doc;
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -84,7 +89,18 @@ public abstract class Site {
 						.equals("complete");
 			}
 		});
-
-		//e.click();
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		// alt = Carregando... id("loadingBuscar")
+		// wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//*[@alt='Carregando...'])[2]")));
+		// wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("(//*[@alt='Carregando...'])[2]")));
+//		synchronized (this) {
+//			try {
+//				Thread.currentThread().wait(10000);
+//			} catch (InterruptedException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//		}
+		// e.click();
 	}
 }

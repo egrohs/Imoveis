@@ -1,6 +1,7 @@
 package modelo;
 
 import java.lang.reflect.Field;
+import java.util.Locale;
 
 public class Imovel {
 	private int quartos, vagas, ano, andares;
@@ -9,6 +10,10 @@ public class Imovel {
 
 	@Override
 	public String toString() {
+		// DecimalFormat formatter = new DecimalFormat("#,###.00");
+		// System.out.println(formatter.format(amount));
+		// or String.format(Locale.ENGLISH, "%f", floatValue)/
+
 		StringBuffer sb = new StringBuffer();
 		for (Field f : Imovel.class.getDeclaredFields()) {
 			try {
