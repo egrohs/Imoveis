@@ -57,7 +57,7 @@ public class Zap extends Site {
 		// for (Imovel imovel : imoveis) {
 		// doc = navega(imovel.getUrl());
 		// imovel.setDescricao(doc.select("div.descricaoOferta > p").text());
-		// // "Ano de Constru��o:""
+		// // "Ano de Construï¿½ï¿½o:""
 		// // Andares:
 		// Elements caracs= doc.select("div.caracteristicaOferta > p");
 		// for (Element e : caracs) {
